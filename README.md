@@ -1,5 +1,5 @@
 # Unity Cardboard photosphere example 
-A simple Unity project template for viewing photospheres / 360-degree photos using Google Cardboard
+A simple Unity project template for viewing photospheres / 360-degree photos using Google Cardboard.
 
 There are two methods demonstrated here:
 
@@ -7,17 +7,23 @@ There are two methods demonstrated here:
 
   2. Use of a sphere mesh with the normals flipped so that the mesh is visible from inside the sphere.
 
-The default Unity Sphere primitive is UV mapped with an equirectangular projection, so most common photospheres should work. When adding your own photosphere images, make sure you set the import size of the image as high as possible (8192).
+## Getting started
 
-The Cardboard plugin for Unity (v0.5.2) is included - if you want to update to different version, delete the Cardboard and Plugins folders and import the new version from here: https://github.com/googlesamples/cardboard-unity
+Download and import the (Unity package of this project)[https://github.com/omgwtfgames/unity-cardboard-photosphere/raw/master/unity-cardboard-photosphere.unitypackage], or clone this git repo.
 
-There are some small changes made to the default Cardboard prefab settings:
+The (Cardboard plugin for Unity)[https://github.com/googlesamples/cardboard-unity] (v0.5.2) is included - if you want to update to different version, delete the `Cardboard` and `Plugins` folders and import the new version.
+
+The default Unity Sphere primitive is UV mapped with an equirectangular projection, so most common photospheres should work. When adding your own photosphere textures, make sure you set the import size of the image as high as possible (8192).
+
+## Some details
+
+The Cardboard prefabs used in these scenes have some small changes to the default settings:
 
   * On CardboardHead, Track Position is turned off (we only want rotation)
   * On StereoController, we reduce Stereo Multiplier to zero - this makes both eyes see the same image.
   * The Camera Far Clipping Plane is set to 1000, and the Sphere has a radius of 999 - this means that the inside of the sphere will be distant, so even if Stereo Multiplier is non-zero there will be no detectable stereo parallax.
 
-Stereo 3D photospheres should be possible (create two spheres, use Layers so left/right cameras only see one sphere) but aren't yet demonstrated.
+Stereo 3D photospheres should be possible but aren't yet demonstrated (create two spheres, use Layers so left/right cameras only see one sphere).
 
 ## License
 The code is provided under the Apache License, Version 2.0.
