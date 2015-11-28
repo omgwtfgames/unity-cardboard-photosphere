@@ -2,11 +2,13 @@
 
 A simple Unity project template for viewing photospheres / 360-degree photos using Google Cardboard.
 
-There are two methods demonstrated here:
+There are three methods demonstrated here:
 
   1. Use of a double sided unlit shader so that both sides of the sphere are visible.
 
   2. Use of a sphere mesh with the normals flipped so that the mesh is visible from inside the sphere.
+  
+  3. Use a standard Unity skybox with the photo imported as a "Latitude-Longitude Layout (Cylindrical)" mapped texture.
 
 ## Getting started
 
@@ -23,6 +25,7 @@ The Cardboard prefabs used in these scenes have some small changes to the defaul
   * On CardboardHead, Track Position is turned off (we only want rotation)
   * On StereoController, we reduce Stereo Multiplier to zero - this makes both eyes see the same image.
   * The Camera Far Clipping Plane is set to 1000, and the Sphere has a radius of 999 - this means that the inside of the sphere will be distant, so even if Stereo Multiplier is non-zero there will be no detectable stereo parallax.
+  * 
 
 Stereo 3D photospheres should be possible but aren't yet demonstrated (create two spheres, use Layers so left/right cameras only see one sphere).
 
