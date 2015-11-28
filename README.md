@@ -1,4 +1,5 @@
-# Unity Cardboard photosphere example 
+# Unity Cardboard photosphere example
+
 A simple Unity project template for viewing photospheres / 360-degree photos using Google Cardboard.
 
 There are two methods demonstrated here:
@@ -9,9 +10,9 @@ There are two methods demonstrated here:
 
 ## Getting started
 
-Download and import the (Unity package of this project)[https://github.com/omgwtfgames/unity-cardboard-photosphere/raw/master/unity-cardboard-photosphere.unitypackage], or clone this git repo.
+Download and import the [Unity package of this project](https://github.com/omgwtfgames/unity-cardboard-photosphere/raw/master/unity-cardboard-photosphere.unitypackage), or clone this git repo.
 
-The (Cardboard plugin for Unity)[https://github.com/googlesamples/cardboard-unity] (v0.5.2) is included - if you want to update to different version, delete the `Cardboard` and `Plugins` folders and import the new version.
+The [Cardboard plugin for Unity](https://github.com/googlesamples/cardboard-unity) (v0.5.2) is included - if you want to update to different version, delete the `Cardboard` and `Plugins` folders and import the new version.
 
 The default Unity Sphere primitive is UV mapped with an equirectangular projection, so most common photospheres should work. When adding your own photosphere textures, make sure you set the import size of the image as high as possible (8192).
 
@@ -26,9 +27,10 @@ The Cardboard prefabs used in these scenes have some small changes to the defaul
 Stereo 3D photospheres should be possible but aren't yet demonstrated (create two spheres, use Layers so left/right cameras only see one sphere).
 
 ## License
+
 The code is provided under the Apache License, Version 2.0.
 
 The "Double Arch Photosphere" by Mark Doliner (https://www.flickr.com/photos/markdoliner/14094296347) is under a Creative Commons Attribution 2.0 Generic License [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
 
-The LyonvilleSpring__AndrewPerry__PublicDomain images is provided under a CC0 license (https://creativecommons.org/publicdomain/zero/1.0/), and is dedicated to the public domain.
+The LyonvilleSpring__AndrewPerry__PublicDomain images is provided under a [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/), and is dedicated to the public domain.
 
