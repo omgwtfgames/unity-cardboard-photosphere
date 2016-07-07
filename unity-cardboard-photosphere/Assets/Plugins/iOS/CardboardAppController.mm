@@ -16,73 +16,54 @@
 
 extern "C" {
 
-extern void readProfile();
-extern void syncProfile();
-
-extern void createSettingsButton(id app, UIView* view);
-extern UIViewController* createSettingsDialog(id app);
-extern UIViewController* createOnboardingDialog(id app);
+extern void cardboardPause(bool paused);
+extern void createUiLayer(id app, UIView* view);
 
 bool isOpenGLAPI() {
-#if UNITY_VERSION < 463
-  return true;
-#else
-  CardboardAppController* app = (CardboardAppController *)GetAppController();
+  CardboardAppController *app = (CardboardAppController *)GetAppController();
   UnityRenderingAPI api = [app renderingAPI];
   return api == apiOpenGLES2 || api == apiOpenGLES3;
-#endif
 }
 
-void launchSettingsDialog() {
-  CardboardAppController* app = (CardboardAppController *)GetAppController();
-  [app launchSettingsDialog];
+void finishActivityAndReturn(bool exitVR) {
+  CardboardAppController *app = (CardboardAppController *)GetAppController();
+  [app finishActivityAndReturn:exitVR];
 }
 
-void launchOnboardingDialog() {
-  CardboardAppController* app = (CardboardAppController *)GetAppController();
-  [app startSettingsDialog:createOnboardingDialog(app)];
-}
-
-void endSettingsDialog() {
-  CardboardAppController* app = (CardboardAppController *)GetAppController();
-  [app stopSettingsDialog];
-}
+// We have to manually register the Unity Audio Effect plugin.
+struct UnityAudioEffectDefinition;
+typedef int (*UnityPluginGetAudioEffectDefinitionsFunc)(
+    struct UnityAudioEffectDefinition*** descptr);
+extern void UnityRegisterAudioPlugin(
+    UnityPluginGetAudioEffectDefinitionsFunc getAudioEffectDefinitions);
+extern int UnityGetAudioEffectDefinitions(UnityAudioEffectDefinition*** definitionptr);
 
 }  // extern "C"
 
 @implementation CardboardAppController
 
-- (void)preStartUnity {
-  [super preStartUnity];
-  syncProfile();
-}
-
 - (UnityView *)createUnityView {
+  UnityRegisterViewControllerListener(self);
+  UnityRegisterAudioPlugin(UnityGetAudioEffectDefinitions);
   UnityView* unity_view = [super createUnityView];
-  createSettingsButton(self, (UIView *)unity_view);
+  createUiLayer(self, (UIView *)unity_view);
   return unity_view;
 }
 
-- (void)launchSettingsDialog {
-  [self startSettingsDialog:createSettingsDialog(self)];
+- (UIViewController *)unityViewController {
+  return UnityGetGLViewController();
 }
 
-- (void)startSettingsDialog:(UIViewController*)dialog {
-  [self pause:YES];
-  [self.rootViewController presentViewController:dialog animated:NO completion:nil];
+- (void)viewWillAppear:(NSNotification *)notification {
+  cardboardPause(false);
 }
 
-- (void)stopSettingsDialog {
-  [[self rootViewController] dismissViewControllerAnimated:NO completion:nil];
-  [self pause:NO];
+- (void)setPaused:(BOOL)paused {
+  [super setPaused:paused];
+  cardboardPause(paused == YES);
 }
 
-- (void)pause:(bool)paused {
-#if UNITY_VERSION < 462
-  UnityPause(paused);
-#else
-  self.paused = paused;
-#endif
+- (void)finishActivityAndReturn:(BOOL)exitVR {
 }
 
 @end
